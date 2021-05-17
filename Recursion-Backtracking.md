@@ -1,5 +1,8 @@
 ## Leetcode Imp questions based on Recursion and Backtracking 
 
+
+## Question 1  Lexographical Numbers
+
 Given an integer n, return all the numbers in the range [1, n] sorted in lexicographical order.
 Example 1:
 
