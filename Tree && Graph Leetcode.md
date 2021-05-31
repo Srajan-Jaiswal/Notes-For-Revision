@@ -1087,7 +1087,33 @@ int pathSumIV(vector<int> &nums)
     return res;
 }
 ```
+### ZIGZAG Traversal in  a tree  V.IMP
+```
+class Solution {
+public:
+    int maxstep=0;
+    int longestZigZag(TreeNode* root) {
+        if(!root)
+            return 0;
+        dfs(root,true,0);
+        dfs(root,false,0);
+        return maxstep;
+    }
+    void dfs(TreeNode* root,bool isLeft,int step){
+        if(!root) return;
+        maxstep=max(maxstep,step);
+        if(isLeft){
+            dfs(root->right,false,step+1);
+            dfs(root->left,true,1);
+        }
+        else{
+            dfs(root->left,true,step+1);
+            dfs(root->right,false,1);
+        }
+    }
+};
 
+```
 ### Path with Given Sum
 
 * [https://leetcode.com/problems/path-sum](https://leetcode.com/problems/path-sum)
