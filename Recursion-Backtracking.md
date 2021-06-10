@@ -108,7 +108,138 @@ public:
 
 ```
 
+## Combination 
+```
+class Solution{
+public:
+    vector<vector<int>> ans;
+    vector<int> curr;
+    void backtrack(int n,int k,int cnt,int idx){
+    if(cnt==k){
+            ans.push_back(curr);
+            return;
+        }
+    for(int i=idx;i<n;i++){
+            curr.push_back(i+1);
+            backtrack(n,k,cnt+1,i+1);
+            curr.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        if(k>n) return ans;
+        backtrack(n,k,0,0); 
+        return ans;
+    }   
+};
+```
 
+## Combination Sum
+
+```
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<int> curr;
+    int sum=0;
+    void backtrack(vector<int> &candidates,int target,int idx){
+    if(sum==target)
+    {
+        ans.push_back(curr);
+        return;
+    }    
+    if(sum > target){
+        return;
+    }
+    for(int i=idx;i<=candidates.size()-1;i++){
+        if(candidates[i]<=target){
+            sum+=candidates[i];
+       curr.push_back(candidates[i]);
+       backtrack(candidates,target,i);
+       curr.pop_back(); 
+            sum-=candidates[i];
+        }
+    }   
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+       
+        backtrack(candidates,target,0); 
+        return ans;
+    }
+};
+
+```
+
+## Combination Sum II 
+
+```
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<int> curr;
+    int sum=0;
+    void backtrack(vector<int> &candidates,int target,int idx){
+    if(sum==target){
+        ans.push_back(curr);
+        return;
+    }    
+    if(idx>=candidates.size()) return;     
+    if(sum > target){
+        return;
+    }
+    for(int i=idx;i<=candidates.size()-1;i++){
+       if(candidates[i]<=target){
+       sum+=candidates[i];
+       curr.push_back(candidates[i]);
+       backtrack(candidates,target,i+1);
+       curr.pop_back(); 
+       sum-=candidates[i];
+       while(i<candidates.size()-1 && candidates[i] == candidates[i+1]) i++;
+        }
+    }
+    }   
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+       sort(candidates.begin(),candidates.end());
+       backtrack(candidates,target,0); 
+       return ans;
+    }
+};
+
+```
+
+## Combination Sum III
+
+```
+class Solution {
+public:
+    int sum=0;
+    vector<vector<int>> ans;
+    vector<int> curr;
+    void backtrack(int n,int k,int cnt,int idx){
+    if(cnt==k && sum==n){
+            ans.push_back(curr);
+            return;
+        }
+    if(cnt>=k) return;  
+    
+    for(int i=idx;i<9;i++){
+            sum+=i+1;
+            curr.push_back(i+1);
+            //cout<<i+1<<endl;
+            backtrack(n,k,cnt+1,i+1);
+            //cout<<i+1<<"->"<<endl;
+            sum-=i+1;
+            curr.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+         if(k>n) return ans;
+        backtrack(n,k,0,0); 
+        return ans;
+    }
+};
+
+
+```
 
 
 
