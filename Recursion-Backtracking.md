@@ -42,3 +42,73 @@ public:
 };
 
 ```
+
+
+
+## Question 2.  Letter Tile Possibilities
+
+You have n  tiles, where each tile has one letter tiles[i] printed on it.
+
+Return the number of possible non-empty sequences of letters you can make using the letters printed on those tiles.
+
+ 
+
+Example 1:
+
+Input: tiles = "AAB"
+Output: 8
+Explanation: The possible sequences are "A", "B", "AA", "AB", "BA", "AAB", "ABA", "BAA".
+Example 2:
+
+Input: tiles = "AAABBC"
+Output: 188
+
+
+```
+
+class Solution {
+public:
+    int cnt=0;
+    unordered_set<string> st,sub_st;
+    void find_permut(int l,int r,string tiles){
+        if(l==r){
+            st.insert(tiles);
+        }
+        for(int i=l;i<=r;i++){
+        swap(tiles[l],tiles[i]);    
+        find_permut(l+1,r,tiles);
+        swap(tiles[l],tiles[i]);
+        }
+    }
+    void find_subsets(int i,string in, string  out){
+        if(i==in.length()){
+            st.clear();
+            if(sub_st.find(out) == sub_st.end() && out!=""){ 
+            sub_st.insert(out);    
+            find_permut(0,out.length()-1,out);
+            //cout<<st.size()<<endl;
+            cnt+=st.size();
+            }
+            return;
+        }
+        find_subsets(i+1,in,out+in[i]);
+        find_subsets(i+1,in,out);    
+    }
+    
+    int numTilePossibilities(string tiles) {
+        sort(tiles.begin(),tiles.end()); // sorting is for avoiding subsets like (cd) (dc) 
+        find_subsets(0,tiles,"");
+        /*for(auto it:sub_st){
+            cout<<it<<endl;
+        }*/
+        return  cnt;
+    }
+};
+
+
+```
+
+
+
+
+
